@@ -3,7 +3,9 @@
 module Api
   module V1
     class DetectController < ApplicationController
-      def create; end
+      def create;
+        head 501
+      end
     end
   end
 end

@@ -4,13 +4,14 @@ require 'rails_helper'
 
 RSpec.describe '/api/v1/report', type: :request do
   describe 'POST /' do
+    create_path = '/api/v1/reports/'
     it 'returns 200 when submitting a nice report' do
-      post_json '/api/v1/reports/', { nice: '1', text: 'azd' }
+      post_json create_path, { nice: '1', text: 'azd' }
       expect(response).to have_http_status(200)
     end
 
     it 'returns 200 when submitting a not so nice report' do
-      post_json '/api/v1/reports/', { nice: '0', text: 'azd' }
+      post_json create_path, { nice: '0', text: 'azd' }
       expect(response).to have_http_status(200)
     end
 
@@ -21,22 +22,22 @@ RSpec.describe '/api/v1/report', type: :request do
     end
 
     it 'returns 400 when missing parameters' do
-      post_json '/api/v1/reports/'
+      post_json create_path
       expect(response).to have_http_status(400)
     end
 
     it 'returns 400 when missing nice parameter' do
-      post_json '/api/v1/reports/', { text: 'azd' }
+      post_json create_path, { text: 'azd' }
       expect(response).to have_http_status(400)
     end
 
     it 'returns 400 when missing text parameter' do
-      post_json '/api/v1/reports/', { nice: '1' }
+      post_json create_path, { nice: '1' }
       expect(response).to have_http_status(400)
     end
 
     it 'returns 400 when nice parameter is malformed' do
-      post_json '/api/v1/reports/', { nice: 'blerg', text: 'azd' }
+      post_json create_path, { nice: 'blerg', text: 'azd' }
       expect(response).to have_http_status(400)
     end
   end
