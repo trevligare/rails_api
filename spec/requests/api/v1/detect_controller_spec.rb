@@ -2,10 +2,10 @@
 
 require 'rails_helper'
 
-RSpec.describe Api::V1::DetectController, type: :controller do
-  describe 'GET #create' do
+RSpec.describe '/api/v1/detect', type: :request do
+  describe 'POST /' do
     it 'returns http success' do
-      post :create
+      post_json :create
       expect(response).to be_successful
     end
   end
