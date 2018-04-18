@@ -1,0 +1,37 @@
+AllCops:
+  TargetRubyVersion: 2.5
+  Exclude:
+    - 'db/*'
+    - 'db/**/*'
+    - 'vendor/**/*'
+    - 'bin/**/*'
+
+Rails:
+  Enabled: true
+
+Documentation:
+  Enabled: false
+
+# Let Ruby spread its wings, but remember that "and"
+# and "or" aren't synonyms for "&&" and "||".
+Style/AndOr:
+  EnforcedStyle: conditionals
+  SupportedStyles:
+    - always
+    - conditionals
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*_spec.rb'
+
+Metrics/LineLength:
+  Max: 120
+  Exclude:
+    - 'db/*'
+    - 'db/**/*'
+    - 'vendor/**/*'
+    - 'bin/**/*'
+
+Metrics/ModuleLength:
+  Exclude:
+    - 'spec/**/*_spec.rb'
