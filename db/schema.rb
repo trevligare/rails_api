@@ -10,7 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_04_18_165645) do
+ActiveRecord::Schema.define(version: 2018_04_19_183538) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "reporters", force: :cascade do |t|
+    t.string "uuid"
+    t.bigint "source_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["source_id"], name: "index_reporters_on_source_id"
+  end
+
+  create_table "sources", force: :cascade do |t|
+    t.string "name"
+    t.string "token"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "statements", force: :cascade do |t|
     t.string "text"
@@ -19,4 +37,5 @@ ActiveRecord::Schema.define(version: 2018_04_18_165645) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "reporters", "sources"
 end

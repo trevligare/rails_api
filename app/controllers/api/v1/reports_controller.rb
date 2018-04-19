@@ -5,7 +5,8 @@ module Api
     class ReportsController < ApplicationController
       before_action :verify_create_params, only: :create
       def create
-        statement = Statement.new(@create_params)
+        reporter = Reporter.find_or_create_by(source: @source, uuid: @report[:uuid])
+        statement = Statement.new(text: @report[:text], nice: @report[:nice])
         if statement.save!
           render json: { id: statement.id }
         else
@@ -16,14 +17,15 @@ module Api
       private
 
       def verify_create_params
+        return error_code('missing reporter parameter') if params[:reporter].blank?
         return error_code('missing text parameter') if params[:text].blank?
         return error_code('missing nice parameter') if params[:nice].blank?
         return error_code('malformed nice parameter') unless params[:nice].match(/\A[1|0]\z/)
-        @create_params = { text: params[:text], nice: params[:nice] }
-      end
-
-      def error_code(message, code = 400)
-        return render json: { error: message }, status: code
+        @report = {
+          text: params[:text],
+          nice: params[:nice],
+          uuid: params[:reporter]
+        }
       end
     end
   end
