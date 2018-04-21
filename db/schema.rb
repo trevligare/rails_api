@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_04_19_183538) do
+ActiveRecord::Schema.define(version: 2018_04_21_055246) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,7 +35,10 @@ ActiveRecord::Schema.define(version: 2018_04_19_183538) do
     t.boolean "nice"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "reporter_id"
+    t.index ["reporter_id"], name: "index_statements_on_reporter_id"
   end
 
   add_foreign_key "reporters", "sources"
+  add_foreign_key "statements", "reporters"
 end

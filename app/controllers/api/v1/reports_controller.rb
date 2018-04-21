@@ -6,7 +6,7 @@ module Api
       before_action :verify_create_params, only: :create
       def create
         reporter = Reporter.find_or_create_by(source: @source, uuid: @report[:uuid])
-        statement = Statement.new(text: @report[:text], nice: @report[:nice])
+        statement = Statement.new(text: @report[:text], nice: @report[:nice], reporter: reporter)
         if statement.save!
           render json: { id: statement.id }
         else

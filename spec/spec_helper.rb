@@ -93,4 +93,6 @@ RSpec.configure do |config|
   #   # test failures related to randomization by passing the same `--seed` value
   #   # as the one that triggered the failure.
   #   Kernel.srand config.seed
+  config.before(:all)  { FFaker::Random.seed=config.seed }
+  config.before(:each) { FFaker::Random.reset! }
 end

@@ -13,6 +13,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 # gem 'rack-cors'
 
 group :development, :test do
+  gem 'ffaker'
   gem 'factory_bot_rails'
   gem 'rspec-rails', '~> 3.7'
   gem 'byebug', platforms: %i[mri mingw x64_mingw]

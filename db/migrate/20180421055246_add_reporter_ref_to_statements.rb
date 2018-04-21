@@ -1,4 +1,5 @@
 class AddReporterRefToStatements < ActiveRecord::Migration[5.2]
   def change
+    add_reference :statements, :reporter, foreign_key: true
   end
 end
