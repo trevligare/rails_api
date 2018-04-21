@@ -15,7 +15,7 @@ RSpec.describe '/api/v1/report', type: :request do
     it 'returns 200 when submitting a nice report' do
       text = FFaker::Tweet.tweet
       result = post_json @create_path, { nice: '1', text: text, token: @source.token, reporter: @reporter.uuid }
-      expect(response).to have_http_status(200)
+      expect(response).to have_http_status(201)
       statement = Statement.find(result[:id])
       expect(statement.text).to eq(text)
       expect(statement.nice).to eq(true)
@@ -26,7 +26,7 @@ RSpec.describe '/api/v1/report', type: :request do
     it 'returns 200 when submitting a not so nice report' do
       text = 'azd'
       result = post_json @create_path, { nice: '0', text: text, token: @source.token, reporter: @reporter.uuid }
-      expect(response).to have_http_status(200)
+      expect(response).to have_http_status(201)
       statement = Statement.find(result[:id])
       expect(statement.text).to eq(text)
       expect(statement.nice).to eq(false)
@@ -37,7 +37,7 @@ RSpec.describe '/api/v1/report', type: :request do
     it 'returns the id of the stored statement' do
       text = 'azd'
       result = post_json '/api/v1/reports', { nice: '0', text: text, token: @source.token, reporter: @reporter.uuid }
-      expect(response).to have_http_status(200)
+      expect(response).to have_http_status(201)
       statement = Statement.find(result[:id])
       expect(statement.text).to eq(text)
       expect(statement.nice).to eq(false)

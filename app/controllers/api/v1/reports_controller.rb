@@ -8,7 +8,7 @@ module Api
         reporter = Reporter.find_or_create_by(source: @source, uuid: @report[:uuid])
         statement = Statement.new(text: @report[:text], nice: @report[:nice], reporter: reporter)
         if statement.save!
-          render json: { id: statement.id }
+          render json: { id: statement.id }, status: 201
         else
           error_code('Could not save statement', 422)
         end
