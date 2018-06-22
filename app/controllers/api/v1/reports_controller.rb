@@ -4,6 +4,19 @@ module Api
   module V1
     class ReportsController < ApplicationController
       before_action :verify_create_params, only: :create
+
+      def index
+        statements = Statement.preload(:reporter)
+                              .joins(:reporter)
+                              .where('reporters.source_id': @source.id)
+
+        render json: {
+          source: @source,
+          reporters: @source.reporter,
+          statements: statements
+        }, status: 200
+      end
+
       def create
         reporter = Reporter.find_or_create_by(source: @source, uuid: @report[:uuid])
         statement = Statement.new(text: @report[:text], nice: @report[:nice], reporter: reporter)
