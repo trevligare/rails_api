@@ -5,3 +5,19 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+Classification.find_or_create_by(
+  name: 'Not specifically bad',
+  slug: 'nothing',
+  nice: true,
+)
+Classification.find_or_create_by(
+  name: 'Threatening text',
+  slug: 'threat',
+  nice: false,
+)
+Classification.find_or_create_by(
+  name: 'Hate speech',
+  slug: 'hate',
+  nice: false,
+)
