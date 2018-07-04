@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_22_211102) do
+ActiveRecord::Schema.define(version: 2018_07_04_205948) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "classifications", force: :cascade do |t|
+  create_table "labels", force: :cascade do |t|
     t.string "name"
     t.string "slug"
     t.boolean "nice"
@@ -43,12 +43,9 @@ ActiveRecord::Schema.define(version: 2018_06_22_211102) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "reporter_id"
-    t.bigint "classification_id"
-    t.index ["classification_id"], name: "index_statements_on_classification_id"
     t.index ["reporter_id"], name: "index_statements_on_reporter_id"
   end
 
   add_foreign_key "reporters", "sources"
-  add_foreign_key "statements", "classifications"
   add_foreign_key "statements", "reporters"
 end
