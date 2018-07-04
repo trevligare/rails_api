@@ -1,3 +1,3 @@
 class Source < ApplicationRecord
-  has_many :reporter
+  has_many :reporters
 end

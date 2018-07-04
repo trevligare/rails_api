@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_04_205948) do
+ActiveRecord::Schema.define(version: 2018_07_04_212409) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "classifications", force: :cascade do |t|
+    t.bigint "label_id"
+    t.bigint "reporter_id"
+    t.bigint "statement_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["label_id"], name: "index_classifications_on_label_id"
+    t.index ["reporter_id"], name: "index_classifications_on_reporter_id"
+    t.index ["statement_id"], name: "index_classifications_on_statement_id"
+  end
 
   create_table "labels", force: :cascade do |t|
     t.string "name"
@@ -46,6 +57,9 @@ ActiveRecord::Schema.define(version: 2018_07_04_205948) do
     t.index ["reporter_id"], name: "index_statements_on_reporter_id"
   end
 
+  add_foreign_key "classifications", "labels"
+  add_foreign_key "classifications", "reporters"
+  add_foreign_key "classifications", "statements"
   add_foreign_key "reporters", "sources"
   add_foreign_key "statements", "reporters"
 end
