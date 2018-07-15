@@ -3,6 +3,6 @@
 FactoryBot.define do
   factory :statement do
     text 'MyString'
-    nice false
+    reporter
   end
 end

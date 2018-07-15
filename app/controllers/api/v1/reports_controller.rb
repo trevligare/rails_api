@@ -41,8 +41,8 @@ module Api
 
         label_param = params[:label]
         return error_code('missing "label" parameter') if label_param.blank?
-        label = find_label(label_param)
-        return error_code('classifcation not registered') unless label
+        label = Label.fuzzy_find(label_param)
+        return error_code('label not previously registered') unless label
 
         @report_params = {
           statement_text: params[:text],
@@ -50,12 +50,6 @@ module Api
           reporter_uuid: params[:reporter],
           source_id: @source.id
         }
-      end
-
-      def find_label(labal_param)
-        Label.find(labal_param)
-      rescue ActiveRecord::RecordNotFound
-        Label.find_by(slug: labal_param)
       end
     end
   end

@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :reporter do
     uuid "MyString"
-    source nil
+    source
   end
 end
