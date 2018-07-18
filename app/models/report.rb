@@ -5,8 +5,9 @@ class Report
       uuid: reporter_uuid
     )
     ActiveRecord::Base.transaction do
-      statement = Statement.create!(text: statement_text,reporter: reporter)
+      statement = Statement.create!(text: statement_text, reporter: reporter)
       Classification.create!(statement_id: statement.id, reporter_id: reporter.id, label_id: label_id ) if label_id
+      return statement
     end
   rescue StandardError => exception
     Rails.logger.info exception.inspect

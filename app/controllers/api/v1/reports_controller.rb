@@ -24,9 +24,9 @@ module Api
       end
 
       def create
-        report = Report.create(@report_params)
-        if report
-          render json: { id: report[:statement_id] }, status: 201
+        statement = Report.create(@report_params)
+        if statement
+          render json: { id: statement[:id] }, status: 201
         else
           error_code('Could not save', 422)
         end
@@ -39,17 +39,20 @@ module Api
         return error_code('missing "reporter" parameter') if params[:reporter].blank?
         return error_code('missing "text" parameter') if params[:text].blank?
 
-        label_param = params[:label]
-        return error_code('missing "label" parameter') if label_param.blank?
-        label = Label.fuzzy_find(label_param)
-        return error_code('label not previously registered') unless label
-
         @report_params = {
           statement_text: params[:text],
-          label_id: label.id,
           reporter_uuid: params[:reporter],
           source_id: @source.id
         }
+
+        label_param = params[:label]
+        if label_param.present?
+          label = Label.fuzzy_find(label_param)
+          return error_code('label not previously registered') unless label
+          @report_params[:label_id] = label.id
+        end
+
+        @report_params
       end
     end
   end
