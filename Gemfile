@@ -6,7 +6,7 @@ ruby '2.5.1'
 gem 'rails', '~> 5.2.1'
 gem 'pg'
 gem 'puma', '~> 3.12'
-gem 'jbuilder', '~> 2.5'
+gem 'jbuilder', '~> 2.8'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
